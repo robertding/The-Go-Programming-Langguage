@@ -3,7 +3,6 @@ package main
 import (
 	"image"
 	"image/color"
-	"image/color/palette"
 	"image/png"
 	"io"
 	"math/cmplx"
@@ -28,24 +27,14 @@ func Draw(f io.Writer) {
 	png.Encode(f, img)
 }
 
-func supersampling(img *image.NewRGBA) {
-	for py :=0; py < img.Rect.Dy(); py++ {
-		for px := 0; px < img.Rect.Dx(); px++ {
-			color :
-		}
-	}
-}
-
 func mandelbrot(z complex128) color.Color {
-	const iterations = 30
+	const iterations = 200
 	const contrast = 15
 	var v complex128
-	colors := palette.WebSafe
-	len_colors := len(colors)
 	for n := uint8(0); n < iterations; n++ {
 		v = v*v + z
 		if cmplx.Abs(v) > 2 {
-			return colors[int(n)*len_colors/iterations]
+			return color.Gray{255 - contrast*n}
 		}
 	}
 	return color.Black
